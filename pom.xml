@@ -14,7 +14,7 @@
 	<artifactId>auto-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>auto-service</name>
-	<description>Simple RESTful web service for Auth Service</description>
+	<description>Simple RESTful web service for Auto Service</description>
 
 	<properties>
 		<java.version>16</java.version>
