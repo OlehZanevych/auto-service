@@ -3,10 +3,12 @@ package org.lnu.software.testing.auto.service.controller.customer;
 import lombok.AllArgsConstructor;
 import org.lnu.software.testing.auto.service.dto.customer.BaseCustomerDto;
 import org.lnu.software.testing.auto.service.dto.customer.CustomerDto;
+import org.lnu.software.testing.auto.service.patch.CustomerPatch;
 import org.lnu.software.testing.auto.service.service.customer.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -44,6 +46,12 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@PathVariable Long id, @RequestBody BaseCustomerDto customerDto) {
         customerService.update(id, customerDto);
+    }
+
+    @PatchMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable Long id, @RequestBody CustomerPatch customerPatch ) {
+        customerService.patch(id, customerPatch);
     }
 
     @DeleteMapping("{id}")

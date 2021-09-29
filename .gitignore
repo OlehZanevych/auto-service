@@ -1,0 +1,9 @@
+**/target/**
+*/delombok/
+.settings
+.classpath
+*.iml
+.idea/
+/.project
+.DS_Store
+/aws-lambdas/dependency-reduced-pom.xml
