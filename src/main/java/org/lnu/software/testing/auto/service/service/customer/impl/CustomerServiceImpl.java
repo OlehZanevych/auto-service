@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import org.lnu.software.testing.auto.service.dto.customer.BaseCustomerDto;
 import org.lnu.software.testing.auto.service.dto.customer.CustomerDto;
 import org.lnu.software.testing.auto.service.entity.customer.CustomerEntity;
+import org.lnu.software.testing.auto.service.exception.BadRequestException;
 import org.lnu.software.testing.auto.service.mapper.CustomerMapper;
+import org.lnu.software.testing.auto.service.patch.CustomerPatch;
 import org.lnu.software.testing.auto.service.repository.customer.CustomerRepository;
 import org.lnu.software.testing.auto.service.service.customer.CustomerService;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,15 @@ public class CustomerServiceImpl implements CustomerService {
         customerEntity.setId(id);
 
         customerRepository.update(customerEntity);
+    }
+
+    @Override
+    public void patch(Long id, CustomerPatch customerPatch) {
+        if (customerPatch.isEmpty()) {
+            throw new BadRequestException("Customer patch is empty!");
+        }
+
+        customerRepository.patch(id, customerPatch);
     }
 
     @Override

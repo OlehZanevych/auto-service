@@ -3,6 +3,7 @@ package org.lnu.software.testing.auto.service.repository.customer.impl;
 import lombok.AllArgsConstructor;
 import org.lnu.software.testing.auto.service.entity.customer.CustomerEntity;
 import org.lnu.software.testing.auto.service.exception.NotFoundException;
+import org.lnu.software.testing.auto.service.patch.CustomerPatch;
 import org.lnu.software.testing.auto.service.repository.customer.CustomerRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,6 +14,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -69,6 +71,12 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 phone = :phone,
                 email = :email,
                 info = :info
+            WHERE id = :id
+            """;
+
+    private static final String PATCH_UPDATE_CUSTOMER_BY_ID_QUERY_TEMPLATE = """
+            UPDATE customers SET
+                %s
             WHERE id = :id
             """;
 
@@ -140,6 +148,63 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
         if (affectedRows == 0) {
             throw new NotFoundException("Customer with id " + entity.getId() + " not found!");
+        }
+    }
+
+    @Override
+    public void patch(Long id, CustomerPatch customerPatch) {
+        List<String> assigments = new ArrayList<>(6);
+        MapSqlParameterSource parameters = new MapSqlParameterSource("id", id);
+
+        if (customerPatch.isFirstNameUpdated()) {
+            String firstName = customerPatch.getFirstName();
+
+            assigments.add("first_name = :firstName");
+            parameters.addValue("firstName", firstName);
+        }
+
+        if (customerPatch.isMiddleNameUpdated()) {
+            String middleName = customerPatch.getMiddleName();
+
+            assigments.add("middle_name = :middleName");
+            parameters.addValue("middleName", middleName);
+        }
+
+        if (customerPatch.isLastNameUpdated()) {
+            String lastName = customerPatch.getLastName();
+
+            assigments.add("last_name = :lastName");
+            parameters.addValue("lastName", lastName);
+        }
+
+        if (customerPatch.isPhoneUpdated()) {
+            String phone = customerPatch.getPhone();
+
+            assigments.add("phone = :phone");
+            parameters.addValue("phone", phone);
+        }
+
+        if (customerPatch.isEmailUpdated()) {
+            String email = customerPatch.getEmail();
+
+            assigments.add("email = :email");
+            parameters.addValue("email", email);
+        }
+
+        if (customerPatch.isInfoUpdated()) {
+            String info = customerPatch.getInfo();
+
+            assigments.add("info = :info");
+            parameters.addValue("info", info);
+        }
+
+        String assigmentStr = String.join(", ", assigments);
+        String query = String.format(PATCH_UPDATE_CUSTOMER_BY_ID_QUERY_TEMPLATE, assigmentStr);
+
+        int affectedRows = jdbcTemplate.update(query, parameters);
+
+        if (affectedRows == 0) {
+            throw new NotFoundException("Customer with id " + id + " not found!");
         }
     }
 
