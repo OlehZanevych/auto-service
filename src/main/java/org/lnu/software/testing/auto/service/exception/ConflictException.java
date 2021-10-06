@@ -3,9 +3,9 @@ package org.lnu.software.testing.auto.service.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.BAD_REQUEST)
-public class BadRequestException extends BaseException {
-    public BadRequestException(String message) {
+@ResponseStatus(HttpStatus.CONFLICT)
+public class ConflictException extends BaseException {
+    public ConflictException(String message) {
         super(message);
     }
 }
