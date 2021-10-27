@@ -26,6 +26,8 @@
 
         <net.ttddyy.datasource-proxy.version>1.7</net.ttddyy.datasource-proxy.version>
 
+        <jjwt.version>0.9.1</jjwt.version>
+
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 	</properties>
 
@@ -72,6 +74,12 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
         </dependency>
 
         <dependency>
