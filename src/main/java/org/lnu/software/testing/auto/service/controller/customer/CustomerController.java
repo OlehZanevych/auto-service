@@ -1,6 +1,7 @@
 package org.lnu.software.testing.auto.service.controller.customer;
 
 import lombok.AllArgsConstructor;
+import org.lnu.software.testing.auto.service.annotation.Auth;
 import org.lnu.software.testing.auto.service.dto.customer.BaseCustomerDto;
 import org.lnu.software.testing.auto.service.dto.customer.CustomerDto;
 import org.lnu.software.testing.auto.service.patch.CustomerPatch;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Auth
 @RestController
 @AllArgsConstructor
 @RequestMapping("customers")
@@ -26,6 +28,7 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
+    @Auth(isAdmin = true)
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CustomerDto create(@RequestBody BaseCustomerDto customerDto) {
@@ -42,18 +45,21 @@ public class CustomerController {
         return customerService.find(id);
     }
 
+    @Auth(isAdmin = true)
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@PathVariable Long id, @RequestBody BaseCustomerDto customerDto) {
         customerService.update(id, customerDto);
     }
 
+    @Auth(isAdmin = true)
     @PatchMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@PathVariable Long id, @RequestBody CustomerPatch customerPatch ) {
         customerService.patch(id, customerPatch);
     }
 
+    @Auth(isAdmin = true)
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
