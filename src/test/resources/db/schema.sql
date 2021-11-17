@@ -1,8 +1,3 @@
-DROP TABLE IF EXISTS auto;
-DROP TABLE IF EXISTS customers;
-DROP TABLE IF EXISTS models;
-DROP TABLE IF EXISTS brands;
-
 CREATE TABLE customers
 (
     id          BIGSERIAL PRIMARY KEY,
