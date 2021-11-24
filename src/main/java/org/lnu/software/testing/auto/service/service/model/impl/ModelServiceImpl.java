@@ -36,6 +36,8 @@ public class ModelServiceImpl implements ModelService {
                     throw new ConflictException(errorMessage);
                 }
             }
+
+            throw e;
         }
         return modelMapper.toDto(modelEntity);
     }
@@ -70,6 +72,8 @@ public class ModelServiceImpl implements ModelService {
                     throw new ConflictException(errorMessage);
                 }
             }
+
+            throw e;
         }
     }
 
@@ -78,7 +82,7 @@ public class ModelServiceImpl implements ModelService {
     public void delete(Long id) {
         int affectedRaws = modelRepository.removeById(id);
         if (affectedRaws == 0) {
-            new NotFoundException("Model not found!");
+            throw new NotFoundException("Model not found!");
         }
     }
 }
