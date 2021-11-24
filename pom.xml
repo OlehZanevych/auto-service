@@ -23,6 +23,7 @@
         <lombok.version>1.18.20</lombok.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <springfox.version>3.0.0</springfox.version>
+        <spring-security-crypto.version>5.6.0</spring-security-crypto.version>
         <embedded-database-spring-test.version>2.1.1</embedded-database-spring-test.version>
 
         <net.ttddyy.datasource-proxy.version>1.7</net.ttddyy.datasource-proxy.version>
@@ -52,6 +53,11 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
             <version>${springfox.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>${spring-security-crypto.version}</version>
         </dependency>
 
         <!-- DataSource proxy -->

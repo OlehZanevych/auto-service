@@ -1,5 +1,6 @@
 package org.lnu.software.testing.auto.service.controller.customer;
 
+import io.swagger.annotations.ApiImplicitParam;
 import lombok.AllArgsConstructor;
 import org.lnu.software.testing.auto.service.annotation.Auth;
 import org.lnu.software.testing.auto.service.dto.customer.BaseCustomerDto;
@@ -31,16 +32,19 @@ public class CustomerController {
     @Auth(isAdmin = true)
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiImplicitParam(name = "Authorization", value = "JWT Token", required = true, paramType = "header", example = "Bearer access_token")
     public CustomerDto create(@RequestBody BaseCustomerDto customerDto) {
         return customerService.create(customerDto);
     }
 
     @GetMapping
+    @ApiImplicitParam(name = "Authorization", value = "JWT Token", required = true, paramType = "header", example = "Bearer access_token")
     public List<CustomerDto> findAll() {
         return customerService.findAll();
     }
 
     @GetMapping("{id}")
+    @ApiImplicitParam(name = "Authorization", value = "JWT Token", required = true, paramType = "header", example = "Bearer access_token")
     public CustomerDto find(@PathVariable Long id) {
         return customerService.find(id);
     }
@@ -48,6 +52,7 @@ public class CustomerController {
     @Auth(isAdmin = true)
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiImplicitParam(name = "Authorization", value = "JWT Token", required = true, paramType = "header", example = "Bearer access_token")
     public void update(@PathVariable Long id, @RequestBody BaseCustomerDto customerDto) {
         customerService.update(id, customerDto);
     }
@@ -55,6 +60,7 @@ public class CustomerController {
     @Auth(isAdmin = true)
     @PatchMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiImplicitParam(name = "Authorization", value = "JWT Token", required = true, paramType = "header", example = "Bearer access_token")
     public void update(@PathVariable Long id, @RequestBody CustomerPatch customerPatch ) {
         customerService.patch(id, customerPatch);
     }
@@ -62,6 +68,7 @@ public class CustomerController {
     @Auth(isAdmin = true)
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiImplicitParam(name = "Authorization", value = "JWT Token", required = true, paramType = "header", example = "Bearer access_token")
     public void delete(@PathVariable Long id) {
         customerService.delete(id);
     }
