@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Auth
@@ -33,7 +34,7 @@ public class CustomerController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiImplicitParam(name = "Authorization", value = "JWT Token", required = true, paramType = "header", example = "Bearer access_token")
-    public CustomerDto create(@RequestBody BaseCustomerDto customerDto) {
+    public CustomerDto create(@RequestBody @Valid BaseCustomerDto customerDto) {
         return customerService.create(customerDto);
     }
 
